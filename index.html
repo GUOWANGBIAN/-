@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>跑路云免费空间</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background-color: white;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .logo {
+            color: #2196F3;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 20px;
+            flex: 1 1 calc(50% - 40px);
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+        .card:hover {
+            transform: scale(1.02);
+        }
+        .icon {
+            width: 60px;
+            height: 60px;
+            background-color: #2196F3;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin: 0 auto 20px auto;
+        }
+        .payment-methods {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .payment-method {
+            background-color: #2196F3;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .payment-method:hover {
+            background-color: #1976D2;
+        }
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 1; 
+            padding-top: 100px; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            overflow: auto; 
+            background-color: rgba(0,0,0,0.4); 
+        }
+        .modal-content {
+            background-color: white;
+            margin: auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .close:hover,
+        .close:focus {
+            color: black;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">跑路云免费空间</div>
+    </div>
+    <div class="container">
+        <div class="card" onclick="showModal('noBackup')">
+            <div class="icon">☁️</div>
+            <h3>没有备份系统</h3>
+            <p>所有数据仅在空间内有一份，我们不会提供任何的备份，使用户数据丢失时无法找回数据，不用客气，这是我们应该做的</p>
+        </div>
+        <div class="card" onclick="showModal('dataPublic')">
+            <div class="icon">📊</div>
+            <h3>数据公开</h3>
+            <p>您的所有数据将会网络上公开，包括但不限于开通时您发送的女装照片，您的长短大小以及它的粗壮程度，这些都会在网络上公开</p>
+        </div>
+        <div class="card" onclick="showModal('paymentMethods')">
+            <div class="icon">💳</div>
+            <h3>多种交易方式</h3>
+            <p>我们支持Paypal、Bit币、微信、支付宝、QQ、财付通、VISA、ApplePay、银联、Skrill、eway、Vpay、百度钱包、校园卡</p>
+            <div class="payment-methods">
+                <span class="payment-method" onclick="showPaymentModal()">Paypal</span>
+                <span class="payment-method" onclick="showPaymentModal()">微信</span>
+                <span class="payment-method" onclick="showPaymentModal()">支付宝</span>
+                <span class="payment-method" onclick="showPaymentModal()">VISA</span>
+                <span class="payment-method" onclick="showPaymentModal()">ApplePay</span>
+            </div>
+        </div>
+        <div class="card" onclick="showModal('renewalMethod')">
+            <div class="icon">🌐</div>
+            <h3>更加先进的续费方式</h3>
+            <p>跑路云为IT乃至整个商业市场带来的变革早已不是空谈。我们成为中国乃至世界第一一个以女装续费产品的产品云</p>
+        </div>
+    </div>
+
+    <!-- Modal for 404 -->
+    <div id="modal404" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>404 - 页面未找到</h2>
+            <p>抱歉，您访问的页面不存在。</p>
+        </div>
+    </div>
+
+    <!-- Modal for Payment -->
+    <div id="modalPayment" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2>你就充值吧（反正也不会退钱）</h2>
+        </div>
+    </div>
+
+    <script>
+        function showModal(type) {
+            if (type === 'noBackup' || type === 'dataPublic' || type === 'renewalMethod') {
+                window.location.href = '404.html';
+            } else if (type === 'paymentMethods') {
+                // Do nothing, as payment methods have their own modal
+            }
+        }
+
+        function showPaymentModal() {
+            document.getElementById('modalPayment').style.display = 'block';
+        }
+
+        function closeModal() {
+            document.getElementById('modal404').style.display = 'none';
+            document.getElementById('modalPayment').style.display = 'none';
+        }
+
+        // Close modal when clicking outside the modal content
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('modal404')) {
+                document.getElementById('modal404').style.display = 'none';
+            }
+            if (event.target == document.getElementById('modalPayment')) {
+                document.getElementById('modalPayment').style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>
